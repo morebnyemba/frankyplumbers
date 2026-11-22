@@ -5,7 +5,6 @@ The Franky Plumbers marketing site: Next.js 15 (App Router) + React 19 + framer-
 ## Run locally
 
 ```bash
-cd client-sites/franky-plumbers
 npm install
 npm run dev        # http://localhost:3000
 npm run build      # production build (all routes static)
@@ -13,12 +12,9 @@ npm run build      # production build (all routes static)
 
 ## Deploy to Vercel
 
-1. In Vercel, **Add New → Project** and import `morebnyemba/slykertech`.
-2. Set **Root Directory** to `client-sites/franky-plumbers`. Vercel auto-detects the Next.js framework preset.
-3. Optional: set the env var `NEXT_PUBLIC_SITE_URL` (e.g. `https://frankyplumbers.co.zw`). It's used for canonical URLs, the sitemap and JSON-LD.
-4. Deploy, then add the custom domain under **Settings → Domains**.
-
-This app is fully standalone, with its own `package.json`, `tsconfig.json` and `postcss.config.mjs`. The root Slyker Tech app's `tsconfig` and ESLint ignore `client-sites/`.
+1. In Vercel, **Add New → Project** and import `morebnyemba/frankyplumbers`. Vercel auto-detects the Next.js framework preset; no extra settings needed.
+2. Optional: set the env var `NEXT_PUBLIC_SITE_URL` (e.g. `https://frankyplumbers.co.zw`). It's used for canonical URLs, the sitemap and JSON-LD.
+3. Deploy, then add the custom domain under **Settings → Domains**.
 
 ## Structure
 

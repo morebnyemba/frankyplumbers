@@ -1,11 +1,8 @@
-import path from "node:path";
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
-  // This app lives inside a larger repo; keep tracing scoped to this folder.
-  outputFileTracingRoot: path.resolve(process.cwd()),
   images: {
     formats: ["image/avif", "image/webp"],
   },
