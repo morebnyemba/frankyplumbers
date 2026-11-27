@@ -34,6 +34,7 @@ export function Footer() {
           <h4>Company</h4>
           <ul>
             <li><FooterLink href="/#about">About us</FooterLink></li>
+            <li><FooterLink href="/gallery">Our work</FooterLink></li>
             <li><FooterLink href="/#reviews">Reviews</FooterLink></li>
             <li><FooterLink href="/services">All services</FooterLink></li>
             <li><FooterLink href="/contact">Contact</FooterLink></li>
