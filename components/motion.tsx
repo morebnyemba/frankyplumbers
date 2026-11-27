@@ -127,13 +127,13 @@ export function Tilt({ children, className, max = 7, ...rest }: HTMLMotionProps<
 }
 
 /** Wraps a CTA so it drifts slightly toward the cursor. */
-export function Magnetic({ children, strength = 0.25 }: { children: ReactNode; strength?: number }) {
+export function Magnetic({ children, strength = 0.25, className }: { children: ReactNode; strength?: number; className?: string }) {
   const reduce = useReducedMotion();
   const x = useSpring(0, { stiffness: 250, damping: 18 });
   const y = useSpring(0, { stiffness: 250, damping: 18 });
   return (
     <motion.span
-      className="magnetic"
+      className={className ? `magnetic ${className}` : "magnetic"}
       style={{ x, y }}
       onPointerMove={(e) => {
         if (reduce || e.pointerType !== "mouse") return;

@@ -48,6 +48,7 @@ const jsonLd = {
   telephone: site.phoneHref.replace("tel:", ""),
   email: site.email,
   image: `${site.url}/og.jpg`,
+  logo: `${site.url}/brand/fp-mark.png`,
   priceRange: "$$",
   address: { "@type": "PostalAddress", addressLocality: site.city, addressCountry: "ZW" },
   areaServed: site.city,

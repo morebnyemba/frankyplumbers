@@ -40,7 +40,32 @@ export function HeroJet() {
     raf: 0, last: 0, t: 0,
     sputter: 0, sputterMode: "close" as "close" | "open",
     mouse: { x: -999, y: -999, on: false },
+    maxP: 1,
   });
+
+  /**
+   * Headroom: find hero content that sits horizontally over the jet and cap the
+   * pressure so the spray's peak stays below it (fits every screen size).
+   * Peak height in canvas px ~= 135 * p; scaled by the canvas' on-screen size.
+   */
+  const measureHeadroom = useCallback(() => {
+    const c = canvasRef.current;
+    const hero = wrapRef.current?.closest(".hero");
+    if (!c || !hero) return;
+    const cr = c.getBoundingClientRect();
+    const scale = cr.height / H || 1;
+    const nozzleY = cr.top + NOZZLE.y * scale;
+    const x0 = cr.left + cr.width / 2 - 34 * scale;
+    const x1 = cr.left + cr.width / 2 + 34 * scale;
+    let ceiling = cr.top - 400;
+    hero.querySelectorAll(".hero-grid h1, .hero-lead, .hero-actions > *, .hero-trust .t, .eyebrow, .hero-quote").forEach((el) => {
+      const r = el.getBoundingClientRect();
+      if (!r.height || r.right < x0 || r.left > x1) return;
+      if (r.bottom < nozzleY) ceiling = Math.max(ceiling, r.bottom);
+    });
+    const free = nozzleY - ceiling - 14;
+    state.current.maxP = Math.max(0.22, Math.min(1, free / (135 * scale)));
+  }, []);
 
   const computeTarget = useCallback(() => {
     const s = state.current;
@@ -48,7 +73,7 @@ export function HeroJet() {
     const vh = window.innerHeight;
     const top = el ? el.getBoundingClientRect().top : vh;
     const scrollFactor = Math.max(0, Math.min(1, (top - vh * 0.2) / (vh * 0.45)));
-    s.target = s.open ? scrollFactor : 0;
+    s.target = s.open ? Math.min(scrollFactor, s.maxP) : 0;
     setScrolledAway(scrollFactor < 0.15);
   }, []);
 
@@ -217,6 +242,10 @@ export function HeroJet() {
     if (reduce) return;
     const s = state.current;
     const onScroll = () => { computeTarget(); ensureLoop(); };
+    const onResize = () => { measureHeadroom(); computeTarget(); ensureLoop(); };
+    measureHeadroom();
+    // Re-measure once the entrance animations have settled.
+    const settle = window.setTimeout(onResize, 2600);
     const onVis = () => ensureLoop();
     const onMove = (e: PointerEvent) => {
       if (e.pointerType !== "mouse" || !canvasRef.current) return;
@@ -231,16 +260,19 @@ export function HeroJet() {
     ensureLoop();
     window.addEventListener("scroll", onScroll, { passive: true });
     window.addEventListener("pointermove", onMove, { passive: true });
+    window.addEventListener("resize", onResize);
     document.addEventListener("visibilitychange", onVis);
     return () => {
       io.disconnect();
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("pointermove", onMove);
+      window.removeEventListener("resize", onResize);
+      window.clearTimeout(settle);
       document.removeEventListener("visibilitychange", onVis);
       cancelAnimationFrame(s.raf);
       s.raf = 0;
     };
-  }, [reduce, computeTarget, ensureLoop]);
+  }, [reduce, computeTarget, ensureLoop, measureHeadroom]);
 
   const toggle = () => {
     const s = state.current;
