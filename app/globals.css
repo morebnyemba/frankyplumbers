@@ -424,6 +424,17 @@ p { margin: 0 0 1em; }
 .leak-host:hover .leak-collar { background: linear-gradient(90deg, #15803d, #86efac 45%, #16a34a); box-shadow: 0 0 0 3px rgba(74, 222, 128, .35), 0 2px 6px rgba(0, 0, 0, .4); }
 .leak.is-paused * { animation-play-state: paused !important; }
 
+/* Leak in empty space: behind text, never over photos */
+.copy-leak { position: relative; align-self: stretch; display: flex; flex-direction: column; justify-content: center; padding: 48px 0 40px; }
+.copy-content { position: relative; z-index: 1; }
+.leak-side { z-index: 0; }
+.leak-side .leak-pipe { border-radius: 9px; left: 0; right: 0; }
+.leak-card { z-index: 0; top: 8px; }
+.leak-card .leak-pipe { height: 10px; border-radius: 5px; left: 18px; right: 18px; }
+.leak-card .leak-collar { height: 16px; width: 18px; left: -9px; }
+.leak-card .leak-drop { top: 11px; }
+.service-body > :not(.leak) { position: relative; z-index: 1; }
+
 /* ---------- Photo bands (emergency CTA + inner page headers) ---------- */
 .photo-band { position: relative; isolation: isolate; color: #fff; overflow: hidden; background: var(--navy-900); }
 .photo-band .bg { position: absolute; inset: 0; z-index: -2; overflow: hidden; }

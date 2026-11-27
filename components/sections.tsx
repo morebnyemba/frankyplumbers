@@ -57,10 +57,10 @@ export function ServiceCard({ s, href }: { s: Service; href?: string }) {
         {s.image && (
           <div className="service-img">
             <Image src={s.image.src} alt={s.image.alt} fill placeholder="blur" blurDataURL={s.image.blur} sizes="(max-width: 680px) 100vw, (max-width: 980px) 50vw, 33vw" style={s.image.focus ? { objectPosition: s.image.focus } : undefined} />
-            {leak && <Leak variant={leak} />}
           </div>
         )}
         <div className="service-body">
+          {leak && <Leak variant={leak} joints={[86]} className="leak-card" />}
           <span className="service-icon"><Icon name={s.icon} /></span>
           <h3>{s.title}</h3>
           <p>{s.short}</p>

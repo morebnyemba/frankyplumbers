@@ -37,18 +37,17 @@ export function ServiceDetail({ id, kicker, title, lead, points, image, reverse,
       viewport={{ once: true, amount: 0.25 }}
       transition={{ duration: 0.9, ease: EASE }}
     >
-      <div className={`main-img-wrap${leak ? " leak-host" : ""}`}>
+      <div className="main-img-wrap">
         <motion.div className="main-img-inner" style={reduce ? undefined : { y }}>
           <Image src={image.src} alt={image.alt} fill placeholder="blur" blurDataURL={image.blur} sizes="(max-width: 980px) 100vw, 50vw" />
         </motion.div>
-        {leak && <Leak variant={leak} />}
       </div>
       {badge}
     </motion.div>
   );
 
-  const copy = (
-    <Stagger gap={0.08}>
+  const copyInner = (
+    <Stagger gap={0.08} className={leak ? "copy-content" : undefined}>
       <motion.span className="kicker" variants={fadeUp}>{kicker}</motion.span>
       <motion.h2 className="h2" id={`${id}-title`} variants={fadeUp}>{title}</motion.h2>
       <motion.p className="lead" variants={fadeUp}>{lead}</motion.p>
@@ -63,6 +62,15 @@ export function ServiceDetail({ id, kicker, title, lead, points, image, reverse,
       {action && <motion.div variants={fadeUp}>{action}</motion.div>}
     </Stagger>
   );
+
+  // Leak lives in the empty space of the text column (not over the photo):
+  // pipe across the top, drips down the ragged right margin, behind the copy.
+  const copy = leak ? (
+    <div className="copy-leak leak-host">
+      <Leak variant={leak} joints={[90]} className="leak-side" />
+      {copyInner}
+    </div>
+  ) : copyInner;
 
   return (
     <section className={`section${soft ? " section-soft" : ""}`} id={id} aria-labelledby={`${id}-title`}>
