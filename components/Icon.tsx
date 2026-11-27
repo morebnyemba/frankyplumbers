@@ -1,4 +1,4 @@
-import { useId } from "react";
+import Image from "next/image";
 import type { IconName } from "@/lib/site";
 
 const stroke = { fill: "none", stroke: "currentColor", strokeWidth: 2, strokeLinecap: "round", strokeLinejoin: "round" } as const;
@@ -42,21 +42,7 @@ export function Icon({ name, className, size }: { name: IconName; className?: st
   );
 }
 
+/** Franky Plumbing Services mark (transparent cut-out of the official logo). */
 export function Logo({ className }: { className?: string }) {
-  const gid = `fp-g-${useId().replace(/:/g, "")}`;
-  return (
-    <svg className={className} viewBox="0 0 48 48" aria-hidden="true">
-      <defs>
-        <linearGradient id={gid} x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0" stopColor="#4aa6ff" />
-          <stop offset="1" stopColor="#1d8cf8" />
-        </linearGradient>
-      </defs>
-      <rect width="48" height="48" rx="13" fill={`url(#${gid})`} />
-      <path d="M24 9c5 6.2 10 11.6 10 17.2A10 10 0 0 1 14 26.2C14 20.6 19 15.2 24 9z" fill="#fff" />
-      <path d="M19.5 27.5a4.6 4.6 0 0 0 4.5 4.3" stroke="#1d8cf8" strokeWidth="2.4" strokeLinecap="round" fill="none" />
-      <circle cx="36" cy="36" r="7" fill="#ff7a1a" stroke="#fff" strokeWidth="2.5" />
-      <path d="m33.4 36 1.9 1.9 3.4-3.6" stroke="#fff" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  );
+  return <Image src="/brand/fp-mark.png" alt="" width={540} height={563} className={className} sizes="48px" priority />;
 }

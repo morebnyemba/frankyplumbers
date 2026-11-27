@@ -54,12 +54,12 @@ export function Header() {
           <div className="container topbar-inner">
             <div className="topbar-group">
               <span className="item"><span className="pulse" aria-hidden="true" /> Plumbers on call 24/7</span>
-              <span className="item hide-sm"><Icon name="clock" /> Office: {site.officeHours}</span>
+              <span className="item hide-sm tb-hours"><Icon name="clock" /> Office: {site.officeHours}</span>
             </div>
             <div className="topbar-group">
-              <a className="item hide-sm" href={`mailto:${site.email}`}><Icon name="mail" /> {site.email}</a>
+              <a className="item hide-sm tb-email" href={`mailto:${site.email}`}><Icon name="mail" /> {site.email}</a>
               <a className="item" href={site.phoneHref}><Icon name="phone" /> {site.phoneDisplay}</a>
-              <a className="item hide-sm" href={site.phone2Href}>{site.phone2Display}</a>
+              <a className="item hide-sm tb-phone2" href={site.phone2Href}>{site.phone2Display}</a>
             </div>
           </div>
         </motion.div>

@@ -57,6 +57,7 @@ export function Hero() {
   const spotlight = useMotionTemplate`radial-gradient(600px circle at ${sx}% ${sy}%, rgba(74,166,255,.20), transparent 60%)`;
 
   return (
+    <>
     <section
       ref={ref}
       className="hero"
@@ -116,17 +117,18 @@ export function Hero() {
 
           <motion.p className="hero-lead" variants={item}>
             Burst pipe at midnight or a full bathroom refit? Our licensed plumbers arrive on time, quote upfront and leave your
-            home spotless. Every job comes with a 12-month workmanship guarantee.
+            home spotless.<span className="lead-extra"> Every job comes with a 12-month workmanship guarantee.</span>
           </motion.p>
 
           <motion.div className="hero-actions" variants={item}>
             <Magnetic>
               <a className="btn btn-primary btn-lg btn-shine" href={site.phoneHref}>
                 <span className="btn-ring" aria-hidden="true"><Icon name="phone" /></span>
-                Call Now: {site.phoneShort}
+                Call Now<span className="hide-mobile">: {site.phoneShort}</span>
               </a>
             </Magnetic>
-            <Magnetic>
+            <a className="btn btn-ghost btn-lg show-mobile" href="#quote">Free Quote</a>
+            <Magnetic className="hide-mobile">
               <Link className="btn btn-ghost btn-lg" href="/services">
                 Explore Services <Icon name="arrow" className="arrow-slide" />
               </Link>
@@ -150,7 +152,7 @@ export function Hero() {
         </motion.div>
 
         <motion.aside
-          className="quote-card"
+          className="quote-card hero-quote"
           aria-labelledby="quote-title"
           initial={reduce ? false : { opacity: 0, x: 60, rotateY: -14, scale: 0.96 }}
           animate={{ opacity: 1, x: 0, rotateY: 0, scale: 1 }}
@@ -175,5 +177,18 @@ export function Hero() {
         </svg>
       </div>
     </section>
+
+    {/* Phones/tablets: the hero is one screen, so the quote form lives right below it. */}
+    <section id="quote" className="mobile-quote" aria-labelledby="mq-title">
+      <div className="container">
+        <div className="quote-card">
+          <div className="live-chip"><span className="pulse" aria-hidden="true" /> Plumbers on call now</div>
+          <h2 id="mq-title">Get a free quote</h2>
+          <p className="sub">Tell us what&apos;s wrong and we&apos;ll reply within 15 minutes.</p>
+          <QuoteForm compact idPrefix="mq" />
+        </div>
+      </div>
+    </section>
+    </>
   );
 }
