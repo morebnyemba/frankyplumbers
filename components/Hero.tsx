@@ -76,7 +76,7 @@ export function Hero() {
         >
           <Image
             src="/img/hero.webp"
-            alt="Franky Plumbers technician repairing pipework under a kitchen sink"
+            alt="Plumber repairing pipework under a kitchen sink"
             fill
             priority
             sizes="100vw"

@@ -3,15 +3,23 @@
  * Every placeholder the client must confirm before launch lives here.
  */
 
+import { photo, type WorkPhoto } from "./work";
+
 export const site = {
-  name: "Franky Plumbers",
+  name: "Franky Plumbing Services",
+  shortName: "Franky Plumbing",
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://frankyplumbers.co.zw",
   city: "Harare",
   country: "Zimbabwe",
-  phoneDisplay: "+263 77 000 0000", // PLACEHOLDER
-  phoneShort: "077 000 0000", // PLACEHOLDER
-  phoneHref: "tel:+263770000000", // PLACEHOLDER
-  whatsapp: "263770000000", // PLACEHOLDER: international format, digits only
+  // Main line: calls + WhatsApp (as printed on the team uniforms)
+  phoneDisplay: "+263 78 715 3222",
+  phoneShort: "078 715 3222",
+  phoneHref: "tel:+263787153222",
+  whatsapp: "263787153222", // international format, digits only
+  // Second line
+  phone2Display: "+263 71 190 2582",
+  phone2Short: "071 190 2582",
+  phone2Href: "tel:+263711902582",
   email: "info@frankyplumbers.co.zw", // PLACEHOLDER
   officeHours: "Mon–Sat 7:00–18:00",
   socials: { facebook: "#", instagram: "#" }, // PLACEHOLDER
@@ -31,14 +39,14 @@ export const stats = [
 export type IconName =
   | "drop" | "bath" | "bolt" | "drain" | "geyser" | "tank" | "building" | "filter" | "wrench"
   | "phone" | "search" | "doc" | "shield" | "star" | "clock" | "mail" | "pin" | "check" | "arrow"
-  | "whatsapp" | "menu" | "close" | "plus" | "facebook" | "instagram" | "quote";
+  | "whatsapp" | "menu" | "close" | "plus" | "facebook" | "instagram" | "quote" | "play" | "expand";
 
 export type Service = {
   slug: string;
   title: string;
   short: string;
   icon: IconName;
-  image?: { src: string; alt: string };
+  image?: WorkPhoto;
   emergency?: boolean;
 };
 
@@ -48,14 +56,14 @@ export const services: Service[] = [
     title: "Leak Detection & Repair",
     short: "Hidden leaks found fast with acoustic and thermal tools, then fixed with minimal damage to walls and floors.",
     icon: "drop",
-    image: { src: "/img/svc-leaks.webp", alt: "Water splashing from a kitchen tap" },
+    image: photo("team-basin"),
   },
   {
     slug: "installs",
     title: "Bathroom & Kitchen Installs",
     short: "Showers, baths, vanities, sinks and full refits, installed neatly with quality fittings that last.",
     icon: "bath",
-    image: { src: "/img/svc-bathroom.webp", alt: "Modern renovated bathroom with freestanding bath" },
+    image: photo("shower-double-door"),
   },
   {
     slug: "emergency",
@@ -63,32 +71,35 @@ export const services: Service[] = [
     short: "Burst pipes, flooding or no water? A plumber is on the road within minutes, day or night, weekends included.",
     icon: "bolt",
     emergency: true,
-    image: { src: "/img/svc-welding.webp", alt: "Plumber working on a pipe joint" },
+    image: photo("team-drainage-trench"),
   },
   {
     slug: "drains",
     title: "Blocked Drains & Sewers",
     short: "High-pressure jetting and CCTV drain cameras clear blockages and show you exactly what caused them.",
     icon: "drain",
+    image: photo("drainage-inspection"),
   },
   {
     slug: "geysers",
     title: "Geysers & Solar Heating",
     short: "Electric, gas and solar geysers supplied, installed, repaired and serviced. Hot water back the same day.",
     icon: "geyser",
+    image: photo("solar-geyser"),
   },
   {
     slug: "water",
     title: "Tanks, Pumps & Boreholes",
     short: "Water tanks, booster pumps and borehole plumbing for steady pressure, even when municipal supply is down.",
     icon: "tank",
+    image: photo("borehole-pump"),
   },
 ];
 
 export const extraServices: Service[] = [
-  { slug: "commercial", title: "Commercial Plumbing", short: "Restaurants, offices, schools and complexes. Planned maintenance contracts and priority call-outs.", icon: "building" },
+  { slug: "commercial", title: "Commercial Plumbing", short: "Restaurants, offices, schools and complexes. Planned maintenance contracts and priority call-outs.", icon: "building", image: photo("site-first-fix") },
   { slug: "filtration", title: "Water Filtration", short: "Whole-house and under-sink filters, softeners and purification for clean, safe drinking water.", icon: "filter" },
-  { slug: "maintenance", title: "Maintenance Plans", short: "Annual inspections of geysers, valves, drains and pressure, so small problems get fixed before they turn into expensive ones.", icon: "wrench" },
+  { slug: "maintenance", title: "Maintenance Plans", short: "Annual inspections of geysers, valves, drains and pressure, so small problems get fixed before they turn into expensive ones.", icon: "wrench", image: photo("toilet-levelled") },
 ];
 
 export const why = [
@@ -105,19 +116,11 @@ export const steps: { title: string; text: string; icon: IconName }[] = [
   { title: "Fixed & guaranteed", text: "Job done, area cleaned, backed by our 12-month guarantee.", icon: "wrench" },
 ];
 
-export const gallery = [
-  { src: "/img/gallery-1.webp", alt: "Marble bathroom with twin basins and brass taps", title: "Twin vanity install", area: "Borrowdale Brooke" },
-  { src: "/img/gallery-2.webp", alt: "Bright bathroom with freestanding bath", title: "Freestanding bath", area: "Mount Pleasant" },
-  { src: "/img/svc-fixtures.webp", alt: "Chrome mixer tap over a basin", title: "Mixer tap upgrade", area: "Avondale" },
-  { src: "/img/gallery-3.webp", alt: "Walk-in glass shower in a modern bathroom", title: "Walk-in shower", area: "Greendale" },
-  { src: "/img/header-pipes.webp", alt: "Exposed commercial pipework with valves", title: "Commercial pipework", area: "Msasa" },
-];
-
 /** SAMPLE CONTENT: replace with real, attributable reviews before launch. */
 export const reviews = [
   { name: "Tendai M.", initials: "TM", meta: "Borrowdale · Emergency repair", text: "Our geyser burst at 2am. Franky's team picked up on the second ring and had a plumber here in 40 minutes. Professional, calm, and the price matched the quote exactly." },
   { name: "Sarah C.", initials: "SC", meta: "Mount Pleasant · Bathroom refit", text: "They redid our whole bathroom: new shower, vanity and toilet. Finished on schedule and left the place cleaner than they found it. We'd recommend them to anyone." },
-  { name: "Kuda N.", initials: "KN", meta: "Avondale · Commercial client", text: "We use Franky Plumbers across all three of our restaurants. Reliable, well documented, and they fix things before they turn into problems. Easily the best plumbers we've worked with." },
+  { name: "Kuda N.", initials: "KN", meta: "Avondale · Commercial client", text: "We use Franky Plumbing across all three of our restaurants. Reliable, well documented, and they fix things before they turn into problems. Easily the best plumbers we've worked with." },
 ];
 
 export const areas = [
@@ -141,6 +144,7 @@ export const serviceOptions = [
 export const nav = [
   { href: "/", label: "Home" },
   { href: "/services", label: "Services" },
+  { href: "/gallery", label: "Our Work" },
   { href: "/#about", label: "About" },
   { href: "/#reviews", label: "Reviews" },
   { href: "/contact", label: "Contact" },

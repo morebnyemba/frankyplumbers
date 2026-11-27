@@ -6,7 +6,9 @@ import { AnimatePresence, motion, useReducedMotion, useScroll, useSpring, useTra
 import { useRef, useState, type ReactNode } from "react";
 import { Icon } from "./Icon";
 import { CountUp, EASE, Magnetic, Parallax, Reveal, Stagger, Tilt, fadeUp, scaleIn } from "./motion";
-import { areas, faqs, gallery, reviews, services, site, stats, steps, waLink, why, type Service } from "@/lib/site";
+import { areas, faqs, reviews, services, site, stats, steps, waLink, why, type Service } from "@/lib/site";
+import { homeWork, photo, type WorkPhoto } from "@/lib/work";
+import { HomeWorkGrid } from "./WorkGallery";
 
 /* ------------------------------------------------------------------ */
 /* Section heading                                                     */
@@ -52,7 +54,7 @@ export function ServiceCard({ s, href }: { s: Service; href?: string }) {
       <Tilt className={`service${s.image ? "" : " no-img"}${s.emergency ? " emergency" : ""}`} max={5}>
         {s.image && (
           <div className="service-img">
-            <Image src={s.image.src} alt={s.image.alt} fill sizes="(max-width: 680px) 100vw, (max-width: 980px) 50vw, 33vw" />
+            <Image src={s.image.src} alt={s.image.alt} fill placeholder="blur" blurDataURL={s.image.blur} sizes="(max-width: 680px) 100vw, (max-width: 980px) 50vw, 33vw" style={s.image.focus ? { objectPosition: s.image.focus } : undefined} />
           </div>
         )}
         <div className="service-body">
@@ -86,6 +88,8 @@ export function Services() {
 /* ------------------------------------------------------------------ */
 /* About / Why us                                                      */
 /* ------------------------------------------------------------------ */
+const aboutPhoto = photo("team-shower-install");
+
 export function About() {
   const ref = useRef<HTMLDivElement>(null);
   const reduce = useReducedMotion();
@@ -100,7 +104,7 @@ export function About() {
         <Reveal className="about-media" ref={ref} variants={{ hidden: { opacity: 0, x: -40 }, show: { opacity: 1, x: 0, transition: { duration: 0.9, ease: EASE } } }}>
           <div className="main-img-wrap">
             <motion.div className="main-img-inner" style={reduce ? undefined : { y: imgY }}>
-              <Image src="/img/about.webp" alt="Franky Plumbers technician with tools on a job site" fill sizes="(max-width: 980px) 100vw, 50vw" />
+              <Image src={aboutPhoto.src} alt={aboutPhoto.alt} fill placeholder="blur" blurDataURL={aboutPhoto.blur} sizes="(max-width: 980px) 100vw, 50vw" style={{ objectPosition: aboutPhoto.focus }} />
             </motion.div>
           </div>
           <motion.div className="about-card" style={reduce ? undefined : { y: cardY }}>
@@ -114,7 +118,7 @@ export function About() {
         </Reveal>
 
         <Stagger gap={0.08}>
-          <motion.span className="kicker" variants={fadeUp}>Why Franky Plumbers</motion.span>
+          <motion.span className="kicker" variants={fadeUp}>Why {site.shortName}</motion.span>
           <motion.h2 className="h2" id="about-title" variants={fadeUp}>Honest plumbers who treat your home like their own</motion.h2>
           <motion.p className="lead" variants={fadeUp}>
             Franky started with one van and one rule: do the job properly, charge a fair price, and clean up afterwards.
@@ -183,7 +187,7 @@ export function EmergencyBand() {
           <motion.span className="kicker kicker-warm" variants={fadeUp}>Plumbing emergency?</motion.span>
           <motion.h2 id="emergency-title" variants={fadeUp}>Burst pipe or flooding? We&apos;re on our way.</motion.h2>
           <motion.p variants={fadeUp}>
-            Shut off your main water valve, then call us. A Franky Plumbers technician can be at your door within 60 minutes,
+            Shut off your main water valve, then call us. A {site.shortName} technician can be at your door within 60 minutes,
             24 hours a day, 365 days a year.
           </motion.p>
         </Stagger>
@@ -199,34 +203,16 @@ export function EmergencyBand() {
 }
 
 /* ------------------------------------------------------------------ */
-/* Gallery: clip-path wipe reveal                                      */
+/* Recent work: Franky's real job photos (lightbox on click)          */
 /* ------------------------------------------------------------------ */
-const wipe = {
-  hidden: { clipPath: "inset(100% 0% 0% 0% round 22px)" },
-  show: { clipPath: "inset(0% 0% 0% 0% round 22px)", transition: { duration: 1.1, ease: EASE } },
-};
-const zoomOut = {
-  hidden: { scale: 1.35 },
-  show: { scale: 1, transition: { duration: 1.4, ease: EASE } },
-};
-
 export function Gallery() {
   return (
-    <section className="section" aria-labelledby="work-title">
+    <section className="section" id="work" aria-labelledby="work-title">
       <div className="container">
-        <SectionHead kicker="Recent work" title="Quality you can see" id="work-title">
-          A few recent installs and repairs from around Harare.
+        <SectionHead kicker="Recent work" title="Real jobs, done by our own team" id="work-title">
+          Every photo here is a Franky Plumbing job in and around Harare. Tap any picture to take a closer look.
         </SectionHead>
-        <Stagger className="gallery" gap={0.12}>
-          {gallery.map((g, i) => (
-            <motion.figure key={g.src} variants={wipe}>
-              <motion.div className="g-img" variants={zoomOut}>
-                <Image src={g.src} alt={g.alt} fill sizes={i === 0 ? "(max-width: 980px) 100vw, 40vw" : "(max-width: 980px) 50vw, 30vw"} />
-              </motion.div>
-              <figcaption>{g.title}<span>{g.area}</span></figcaption>
-            </motion.figure>
-          ))}
-        </Stagger>
+        <HomeWorkGrid items={homeWork} />
       </div>
     </section>
   );
@@ -285,7 +271,7 @@ export function Areas() {
         </div>
         <Reveal className="map-card" variants={scaleIn} delay={0.15}>
           <iframe
-            title="Map of Franky Plumbers' Harare service area"
+            title={`Map of ${site.name} service area in Harare`}
             src="https://www.google.com/maps?q=Harare,+Zimbabwe&z=11&output=embed"
             loading="lazy"
             referrerPolicy="no-referrer-when-downgrade"
@@ -369,13 +355,17 @@ export function FinalCta() {
 /* ------------------------------------------------------------------ */
 /* Inner-page photo header                                             */
 /* ------------------------------------------------------------------ */
-export function PageHeader({ title, crumb, children, actions }: { title: string; crumb: string; children: ReactNode; actions?: ReactNode }) {
+export function PageHeader({ title, crumb, children, actions, image }: { title: string; crumb: string; children: ReactNode; actions?: ReactNode; image?: WorkPhoto }) {
   const words = title.split(" ");
   return (
     <section className="photo-band page-header" aria-labelledby="page-title">
       <Parallax className="bg" offset={60}>
         <motion.div className="bg-zoom" initial={{ scale: 1.15 }} animate={{ scale: 1 }} transition={{ duration: 2, ease: EASE }}>
-          <Image src="/img/header-pipes.webp" alt="" fill priority sizes="100vw" />
+          {image ? (
+            <Image src={image.src} alt="" fill priority sizes="100vw" placeholder="blur" blurDataURL={image.blur} />
+          ) : (
+            <Image src="/img/header-pipes.webp" alt="" fill priority sizes="100vw" />
+          )}
         </motion.div>
       </Parallax>
       <motion.div className="container" initial="hidden" animate="show" variants={{ hidden: {}, show: { transition: { staggerChildren: 0.08, delayChildren: 0.2 } } }}>

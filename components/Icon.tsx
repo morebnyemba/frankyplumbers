@@ -29,6 +29,8 @@ const paths: Record<IconName, React.ReactNode> = {
   plus: <path {...stroke} strokeWidth={2.6} d="M12 5v14M5 12h14" />,
   facebook: <path fill="currentColor" d="M14 8h3V4h-3a4 4 0 0 0-4 4v2H8v4h2v8h4v-8h3l1-4h-4V8z" />,
   instagram: <g fill="none" stroke="currentColor" strokeWidth={2}><rect x="3" y="3" width="18" height="18" rx="5" /><circle cx="12" cy="12" r="4" /><circle cx="17.5" cy="6.5" r="1" fill="currentColor" /></g>,
+  play: <path fill="currentColor" d="M8 5.5v13a1 1 0 0 0 1.5.86l10.5-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5z" />,
+  expand: <path {...stroke} d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />,
   quote: <path fill="currentColor" d="M7 7h4v4c0 3-1.5 5-4 6l-.8-1.4C7.7 14.8 8.4 13.6 8.5 12H7zm8 0h4v4c0 3-1.5 5-4 6l-.8-1.4c1.5-.8 2.2-2 2.3-3.6H15z" />,
 };
 

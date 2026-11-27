@@ -5,6 +5,7 @@ import { ServiceDetail } from "@/components/ServiceDetail";
 import { PageHeader, SectionHead, ServiceCard, EmergencyBand } from "@/components/sections";
 import { Stagger } from "@/components/motion";
 import { extraServices, services, site } from "@/lib/site";
+import { photo } from "@/lib/work";
 
 export const metadata: Metadata = {
   title: "Plumbing Services",
@@ -36,7 +37,7 @@ export default function ServicesPage() {
         title="Emergency plumbing, day or night"
         lead="Water damage gets worse by the minute. Our emergency crews are on call around the clock, every day of the year, including public holidays."
         points={[{ title: "Burst & leaking pipes" }, { title: "Burst geysers" }, { title: "Sewer back-ups" }, { title: "No water supply" }]}
-        image={{ src: "/img/svc-welding.webp", alt: "Plumber repairing a pipe joint" }}
+        image={photo("team-drainage-trench")}
         badge={<div className="about-badge"><strong>60</strong><span>minute emergency response</span></div>}
         action={<a className="btn btn-primary btn-shine" href={site.phoneHref}>Call the emergency line</a>}
       />
@@ -53,7 +54,7 @@ export default function ServicesPage() {
           { title: "Written leak report", text: "Useful for insurance claims." },
           { title: "Taps, toilets & cisterns", text: "Small drips fixed before they add up on your water bill." },
         ]}
-        image={{ src: "/img/svc-leaks.webp", alt: "Water splashing from a kitchen tap" }}
+        image={photo("team-basin")}
       />
 
       <ServiceDetail
@@ -62,7 +63,7 @@ export default function ServicesPage() {
         title="Installs and renovations done properly"
         lead="New builds, refits and upgrades: showers, baths, basins, toilets, kitchen sinks, dishwashers and washing machines, plumbed in neatly and to code."
         points={[{ title: "Full bathroom refits" }, { title: "Walk-in showers" }, { title: "Kitchen sinks & appliances" }, { title: "New-build plumbing" }]}
-        image={{ src: "/img/gallery-1.webp", alt: "Marble bathroom with twin basins" }}
+        image={photo("bath-rain-shower")}
         badge={
           <div className="about-card">
             <span className="ok"><Icon name="check" /></span>
@@ -77,7 +78,7 @@ export default function ServicesPage() {
           <Stagger className="services-grid" gap={0.08}>
             {more.map((s) => (
               <div key={s.slug} id={s.slug} className="anchor-target">
-                <ServiceCard s={{ ...s, image: undefined }} href="/contact" />
+                <ServiceCard s={s} href="/contact" />
               </div>
             ))}
           </Stagger>

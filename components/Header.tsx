@@ -59,6 +59,7 @@ export function Header() {
             <div className="topbar-group">
               <a className="item hide-sm" href={`mailto:${site.email}`}><Icon name="mail" /> {site.email}</a>
               <a className="item" href={site.phoneHref}><Icon name="phone" /> {site.phoneDisplay}</a>
+              <a className="item hide-sm" href={site.phone2Href}>{site.phone2Display}</a>
             </div>
           </div>
         </motion.div>
@@ -70,8 +71,8 @@ export function Header() {
                 <Logo className="brand-mark" />
               </motion.span>
               <span className="brand-text">
-                <span className="brand-name">Franky<span>Plumbers</span></span>
-                <span className="brand-tag">Licensed · Insured</span>
+                <span className="brand-name">Franky<span>Plumbing</span></span>
+                <span className="brand-tag">Services</span>
               </span>
             </Link>
 

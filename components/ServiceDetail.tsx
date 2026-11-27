@@ -5,6 +5,7 @@ import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion
 import { useRef, type ReactNode } from "react";
 import { Icon } from "./Icon";
 import { EASE, Stagger, fadeUp } from "./motion";
+import type { WorkPhoto } from "@/lib/work";
 
 type Props = {
   id: string;
@@ -12,7 +13,7 @@ type Props = {
   title: string;
   lead: string;
   points: { title: string; text?: string }[];
-  image: { src: string; alt: string };
+  image: WorkPhoto;
   reverse?: boolean;
   soft?: boolean;
   badge?: ReactNode;
@@ -34,9 +35,9 @@ export function ServiceDetail({ id, kicker, title, lead, points, image, reverse,
       viewport={{ once: true, amount: 0.25 }}
       transition={{ duration: 0.9, ease: EASE }}
     >
-      <div className="main-img-wrap landscape">
+      <div className="main-img-wrap">
         <motion.div className="main-img-inner" style={reduce ? undefined : { y }}>
-          <Image src={image.src} alt={image.alt} fill sizes="(max-width: 980px) 100vw, 50vw" />
+          <Image src={image.src} alt={image.alt} fill placeholder="blur" blurDataURL={image.blur} sizes="(max-width: 980px) 100vw, 50vw" />
         </motion.div>
       </div>
       {badge}

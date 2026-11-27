@@ -11,8 +11,8 @@ export function Footer() {
           <Link className="brand" href="/" aria-label={`${site.name} home`}>
             <Logo className="brand-mark" />
             <span className="brand-text">
-              <span className="brand-name">Franky<span>Plumbers</span></span>
-              <span className="brand-tag">Licensed · Insured</span>
+              <span className="brand-name">Franky<span>Plumbing</span></span>
+              <span className="brand-tag">Services</span>
             </span>
           </Link>
           <p>Licensed, insured plumbers serving Harare homes and businesses for over 15 years. Fast response, fair prices, guaranteed work.</p>
@@ -34,6 +34,7 @@ export function Footer() {
           <h4>Company</h4>
           <ul>
             <li><FooterLink href="/#about">About us</FooterLink></li>
+            <li><FooterLink href="/gallery">Our work</FooterLink></li>
             <li><FooterLink href="/#reviews">Reviews</FooterLink></li>
             <li><FooterLink href="/services">All services</FooterLink></li>
             <li><FooterLink href="/contact">Contact</FooterLink></li>
@@ -42,7 +43,7 @@ export function Footer() {
         <div>
           <h4>Get in touch</h4>
           <ul className="footer-contact">
-            <li><Icon name="phone" /><a href={site.phoneHref}>{site.phoneDisplay}</a></li>
+            <li><Icon name="phone" /><span><a href={site.phoneHref}>{site.phoneDisplay}</a><br /><a href={site.phone2Href}>{site.phone2Display}</a></span></li>
             <li><Icon name="mail" /><a href={`mailto:${site.email}`}>{site.email}</a></li>
             <li><Icon name="pin" /><span>{site.city}, {site.country}</span></li>
             <li><Icon name="clock" /><span>Emergencies 24/7 · Office {site.officeHours}</span></li>
