@@ -6,6 +6,7 @@ import { useRef, type ReactNode } from "react";
 import { Icon } from "./Icon";
 import { EASE, Stagger, fadeUp } from "./motion";
 import type { WorkPhoto } from "@/lib/work";
+import { Leak } from "./Leak";
 
 type Props = {
   id: string;
@@ -17,10 +18,11 @@ type Props = {
   reverse?: boolean;
   soft?: boolean;
   badge?: ReactNode;
+  leak?: "drip" | "burst";
   action?: ReactNode;
 };
 
-export function ServiceDetail({ id, kicker, title, lead, points, image, reverse, soft, badge, action }: Props) {
+export function ServiceDetail({ id, kicker, title, lead, points, image, reverse, soft, badge, action, leak }: Props) {
   const ref = useRef<HTMLDivElement>(null);
   const reduce = useReducedMotion();
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
@@ -35,10 +37,11 @@ export function ServiceDetail({ id, kicker, title, lead, points, image, reverse,
       viewport={{ once: true, amount: 0.25 }}
       transition={{ duration: 0.9, ease: EASE }}
     >
-      <div className="main-img-wrap">
+      <div className={`main-img-wrap${leak ? " leak-host" : ""}`}>
         <motion.div className="main-img-inner" style={reduce ? undefined : { y }}>
           <Image src={image.src} alt={image.alt} fill placeholder="blur" blurDataURL={image.blur} sizes="(max-width: 980px) 100vw, 50vw" />
         </motion.div>
+        {leak && <Leak variant={leak} />}
       </div>
       {badge}
     </motion.div>

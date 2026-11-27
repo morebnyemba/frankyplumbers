@@ -7,6 +7,7 @@ import { useEffect, useRef, useState } from "react";
 import { Icon } from "./Icon";
 import { EASE, Magnetic } from "./motion";
 import { QuoteForm } from "./QuoteForm";
+import { HeroJet } from "./HeroJet";
 import { site } from "@/lib/site";
 
 const line1 = ["Plumbing", "done", "right,"];
@@ -163,16 +164,7 @@ export function Hero() {
         </motion.aside>
       </motion.div>
 
-      <motion.a
-        href="#services"
-        className="scroll-cue"
-        aria-label="Scroll to services"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.8 }}
-      >
-        <span className="mouse"><motion.span className="wheel" animate={reduce ? undefined : { y: [0, 10, 0], opacity: [1, 0, 1] }} transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }} /></span>
-      </motion.a>
+      <HeroJet />
 
       <div className="hero-waves" aria-hidden="true">
         <svg className="wave wave-back" viewBox="0 0 2880 120" preserveAspectRatio="none">
