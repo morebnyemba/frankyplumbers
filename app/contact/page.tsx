@@ -6,7 +6,7 @@ import { Reveal } from "@/components/motion";
 
 export const metadata: Metadata = {
   title: "Contact Us",
-  description: "Call, WhatsApp or request a free plumbing quote from Franky Plumbers. 24/7 emergency line across Harare.",
+  description: "Call, WhatsApp or request a free plumbing quote from Franky Plumbing Services. 24/7 emergency line across Harare.",
   alternates: { canonical: "/contact" },
 };
 
@@ -32,7 +32,7 @@ export default function ContactPage() {
         <div className="container">
           <Reveal className="map-card">
             <iframe
-              title="Map of Franky Plumbers' Harare service area"
+              title="Map of Franky Plumbing Services service area in Harare"
               src="https://www.google.com/maps?q=Harare,+Zimbabwe&z=11&output=embed"
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"

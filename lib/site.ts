@@ -6,14 +6,20 @@
 import { photo, type WorkPhoto } from "./work";
 
 export const site = {
-  name: "Franky Plumbers",
+  name: "Franky Plumbing Services",
+  shortName: "Franky Plumbing",
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://frankyplumbers.co.zw",
   city: "Harare",
   country: "Zimbabwe",
-  phoneDisplay: "+263 77 000 0000", // PLACEHOLDER
-  phoneShort: "077 000 0000", // PLACEHOLDER
-  phoneHref: "tel:+263770000000", // PLACEHOLDER
-  whatsapp: "263770000000", // PLACEHOLDER: international format, digits only
+  // Main line: calls + WhatsApp (as printed on the team uniforms)
+  phoneDisplay: "+263 78 715 3222",
+  phoneShort: "078 715 3222",
+  phoneHref: "tel:+263787153222",
+  whatsapp: "263787153222", // international format, digits only
+  // Second line
+  phone2Display: "+263 71 190 2582",
+  phone2Short: "071 190 2582",
+  phone2Href: "tel:+263711902582",
   email: "info@frankyplumbers.co.zw", // PLACEHOLDER
   officeHours: "Mon–Sat 7:00–18:00",
   socials: { facebook: "#", instagram: "#" }, // PLACEHOLDER
@@ -114,7 +120,7 @@ export const steps: { title: string; text: string; icon: IconName }[] = [
 export const reviews = [
   { name: "Tendai M.", initials: "TM", meta: "Borrowdale · Emergency repair", text: "Our geyser burst at 2am. Franky's team picked up on the second ring and had a plumber here in 40 minutes. Professional, calm, and the price matched the quote exactly." },
   { name: "Sarah C.", initials: "SC", meta: "Mount Pleasant · Bathroom refit", text: "They redid our whole bathroom: new shower, vanity and toilet. Finished on schedule and left the place cleaner than they found it. We'd recommend them to anyone." },
-  { name: "Kuda N.", initials: "KN", meta: "Avondale · Commercial client", text: "We use Franky Plumbers across all three of our restaurants. Reliable, well documented, and they fix things before they turn into problems. Easily the best plumbers we've worked with." },
+  { name: "Kuda N.", initials: "KN", meta: "Avondale · Commercial client", text: "We use Franky Plumbing across all three of our restaurants. Reliable, well documented, and they fix things before they turn into problems. Easily the best plumbers we've worked with." },
 ];
 
 export const areas = [

@@ -1,6 +1,6 @@
-# Franky Plumbers website
+# Franky Plumbing Services website
 
-The Franky Plumbers marketing site: Next.js 15 (App Router) + React 19 + framer-motion. Every route prerenders statically, so it deploys to Vercel with no configuration.
+The Franky Plumbing Services marketing site: Next.js 15 (App Router) + React 19 + framer-motion. Every route prerenders statically, so it deploys to Vercel with no configuration.
 
 ## Run locally
 
@@ -64,7 +64,7 @@ Everything is in **`lib/site.ts`**:
 
 | What | Key |
 |---|---|
-| Phone / WhatsApp / email | `site.phone*`, `site.whatsapp`, `site.email` |
+| Email (placeholder), domain | `site.email`, `site.url` (phones are real: main 078 715 3222, second 071 190 2582) |
 | Social links | `site.socials` |
 | Stats (15+ yrs, 4,800 jobs, 4.9★, 60 min) | `stats` (also the hero trust row in `Hero.tsx` and the rating pill in `sections.tsx`) |
 | **Testimonials: sample text** | `reviews`. Use real, attributable reviews only |

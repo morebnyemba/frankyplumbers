@@ -118,7 +118,7 @@ export function About() {
         </Reveal>
 
         <Stagger gap={0.08}>
-          <motion.span className="kicker" variants={fadeUp}>Why Franky Plumbers</motion.span>
+          <motion.span className="kicker" variants={fadeUp}>Why {site.shortName}</motion.span>
           <motion.h2 className="h2" id="about-title" variants={fadeUp}>Honest plumbers who treat your home like their own</motion.h2>
           <motion.p className="lead" variants={fadeUp}>
             Franky started with one van and one rule: do the job properly, charge a fair price, and clean up afterwards.
@@ -187,7 +187,7 @@ export function EmergencyBand() {
           <motion.span className="kicker kicker-warm" variants={fadeUp}>Plumbing emergency?</motion.span>
           <motion.h2 id="emergency-title" variants={fadeUp}>Burst pipe or flooding? We&apos;re on our way.</motion.h2>
           <motion.p variants={fadeUp}>
-            Shut off your main water valve, then call us. A Franky Plumbers technician can be at your door within 60 minutes,
+            Shut off your main water valve, then call us. A {site.shortName} technician can be at your door within 60 minutes,
             24 hours a day, 365 days a year.
           </motion.p>
         </Stagger>
@@ -271,7 +271,7 @@ export function Areas() {
         </div>
         <Reveal className="map-card" variants={scaleIn} delay={0.15}>
           <iframe
-            title="Map of Franky Plumbers' Harare service area"
+            title={`Map of ${site.name} service area in Harare`}
             src="https://www.google.com/maps?q=Harare,+Zimbabwe&z=11&output=embed"
             loading="lazy"
             referrerPolicy="no-referrer-when-downgrade"

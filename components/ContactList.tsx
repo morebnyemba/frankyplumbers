@@ -7,7 +7,8 @@ import { site, waLink } from "@/lib/site";
 
 const items = [
   { href: site.phoneHref, icon: "phone" as const, tone: "or", label: "Call 24/7", value: site.phoneDisplay },
-  { href: waLink(), icon: "whatsapp" as const, tone: "wa", label: "WhatsApp", value: "Chat with us", external: true },
+  { href: site.phone2Href, icon: "phone" as const, tone: "", label: "Second line", value: site.phone2Display },
+  { href: waLink(), icon: "whatsapp" as const, tone: "wa", label: "WhatsApp", value: site.phoneDisplay, external: true },
   { href: `mailto:${site.email}`, icon: "mail" as const, tone: "", label: "Email", value: site.email },
   { icon: "clock" as const, tone: "", label: "Office hours", value: site.officeHours },
 ];

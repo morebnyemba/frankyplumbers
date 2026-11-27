@@ -3,7 +3,7 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { useState, type FormEvent } from "react";
 import { Icon } from "./Icon";
-import { serviceOptions, waLink } from "@/lib/site";
+import { serviceOptions, site, waLink } from "@/lib/site";
 
 /**
  * Lead form. No backend: it composes a WhatsApp message and opens wa.me.
@@ -21,7 +21,7 @@ export function QuoteForm({ compact = false, idPrefix = "q" }: { compact?: boole
     if (d.get("company")) return; // honeypot
 
     const lines = [
-      "Hi Franky Plumbers, I'd like a quote.",
+      `Hi ${site.name}, I'd like a quote.`,
       `Name: ${d.get("name") ?? ""}`,
       `Phone: ${d.get("phone") ?? ""}`,
       d.get("service") ? `Service: ${d.get("service")}` : "",
