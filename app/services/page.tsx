@@ -33,6 +33,7 @@ export default function ServicesPage() {
 
       <ServiceDetail
         id="emergency"
+        leak="burst"
         kicker="24/7 Emergency"
         title="Emergency plumbing, day or night"
         lead="Water damage gets worse by the minute. Our emergency crews are on call around the clock, every day of the year, including public holidays."
@@ -44,6 +45,7 @@ export default function ServicesPage() {
 
       <ServiceDetail
         id="leaks"
+        leak="drip"
         soft
         reverse
         kicker="Leak detection"

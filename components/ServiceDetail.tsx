@@ -6,6 +6,7 @@ import { useRef, type ReactNode } from "react";
 import { Icon } from "./Icon";
 import { EASE, Stagger, fadeUp } from "./motion";
 import type { WorkPhoto } from "@/lib/work";
+import { Leak } from "./Leak";
 
 type Props = {
   id: string;
@@ -17,10 +18,11 @@ type Props = {
   reverse?: boolean;
   soft?: boolean;
   badge?: ReactNode;
+  leak?: "drip" | "burst";
   action?: ReactNode;
 };
 
-export function ServiceDetail({ id, kicker, title, lead, points, image, reverse, soft, badge, action }: Props) {
+export function ServiceDetail({ id, kicker, title, lead, points, image, reverse, soft, badge, action, leak }: Props) {
   const ref = useRef<HTMLDivElement>(null);
   const reduce = useReducedMotion();
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
@@ -44,8 +46,8 @@ export function ServiceDetail({ id, kicker, title, lead, points, image, reverse,
     </motion.div>
   );
 
-  const copy = (
-    <Stagger gap={0.08}>
+  const copyInner = (
+    <Stagger gap={0.08} className={leak ? "copy-content" : undefined}>
       <motion.span className="kicker" variants={fadeUp}>{kicker}</motion.span>
       <motion.h2 className="h2" id={`${id}-title`} variants={fadeUp}>{title}</motion.h2>
       <motion.p className="lead" variants={fadeUp}>{lead}</motion.p>
@@ -60,6 +62,15 @@ export function ServiceDetail({ id, kicker, title, lead, points, image, reverse,
       {action && <motion.div variants={fadeUp}>{action}</motion.div>}
     </Stagger>
   );
+
+  // Leak lives in the empty space of the text column (not over the photo):
+  // pipe across the top, drips down the ragged right margin, behind the copy.
+  const copy = leak ? (
+    <div className="copy-leak leak-host">
+      <Leak variant={leak} joints={[90]} className="leak-side" />
+      {copyInner}
+    </div>
+  ) : copyInner;
 
   return (
     <section className={`section${soft ? " section-soft" : ""}`} id={id} aria-labelledby={`${id}-title`}>

@@ -9,6 +9,7 @@ import { CountUp, EASE, Magnetic, Parallax, Reveal, Stagger, Tilt, fadeUp, scale
 import { areas, faqs, reviews, services, site, stats, steps, waLink, why, type Service } from "@/lib/site";
 import { homeWork, photo, type WorkPhoto } from "@/lib/work";
 import { HomeWorkGrid } from "./WorkGallery";
+import { Leak } from "./Leak";
 
 /* ------------------------------------------------------------------ */
 /* Section heading                                                     */
@@ -49,15 +50,17 @@ export function Stats() {
 /* ------------------------------------------------------------------ */
 export function ServiceCard({ s, href }: { s: Service; href?: string }) {
   const link = s.emergency ? site.phoneHref : href ?? `/services#${s.slug}`;
+  const leak = s.emergency ? "burst" : s.slug === "leaks" ? "drip" : null;
   return (
     <motion.article variants={scaleIn} className="service-wrap">
-      <Tilt className={`service${s.image ? "" : " no-img"}${s.emergency ? " emergency" : ""}`} max={5}>
+      <Tilt className={`service${s.image ? "" : " no-img"}${s.emergency ? " emergency" : ""}${leak ? " leak-host" : ""}`} max={5}>
         {s.image && (
           <div className="service-img">
             <Image src={s.image.src} alt={s.image.alt} fill placeholder="blur" blurDataURL={s.image.blur} sizes="(max-width: 680px) 100vw, (max-width: 980px) 50vw, 33vw" style={s.image.focus ? { objectPosition: s.image.focus } : undefined} />
           </div>
         )}
         <div className="service-body">
+          {leak && <Leak variant={leak} joints={[86]} className="leak-card" />}
           <span className="service-icon"><Icon name={s.icon} /></span>
           <h3>{s.title}</h3>
           <p>{s.short}</p>
@@ -182,6 +185,7 @@ export function EmergencyBand() {
       <Parallax className="bg" offset={80}>
         <Image src="/img/header-pipes.webp" alt="" fill sizes="100vw" />
       </Parallax>
+      <Leak variant="burst" joints={[6, 68, 95]} className="leak-band" />
       <div className="container cta-inner">
         <Stagger gap={0.1}>
           <motion.span className="kicker kicker-warm" variants={fadeUp}>Plumbing emergency?</motion.span>
