@@ -372,57 +372,102 @@ p { margin: 0 0 1em; }
 .leak { position: absolute; inset: 0; z-index: 2; pointer-events: none; container-type: size; overflow: hidden; }
 .leak-pipe {
   position: absolute; left: -2px; right: -2px; top: 0; height: 14px;
-  background: linear-gradient(180deg, #eef2f7 0%, #b8c3d1 40%, #7f8ea3 62%, #c9d2de 100%);
-  box-shadow: 0 3px 10px rgba(0, 0, 0, .35);
+  background: linear-gradient(180deg, #f3f6fa 0%, #c3cdda 35%, #7f8ea3 62%, #aab6c5 82%, #d5dce6 100%);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, .3);
 }
+.leak-pipe::after { content: ""; position: absolute; left: 0; right: 0; top: 3px; height: 2px; background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .9) 20%, transparent 40%, rgba(255, 255, 255, .6) 70%, transparent); opacity: .7; }
 .leak-joint { position: absolute; top: 0; width: 0; height: 100%; }
 .leak-collar {
   position: absolute; top: -3px; left: -11px; width: 22px; height: 20px; border-radius: 4px;
   background: linear-gradient(90deg, #7f8ea3, #f3f6fa 40%, #a3afbf 60%, #66748a); box-shadow: 0 2px 6px rgba(0, 0, 0, .45);
   transition: background .35s, box-shadow .35s;
 }
+/* A bead of water always clinging under the joint */
+.leak-collar::after { content: ""; position: absolute; left: 50%; bottom: -4px; width: 7px; height: 5px; margin-left: -3.5px; border-radius: 0 0 50% 50%; background: radial-gradient(circle at 40% 30%, #fff, #9fd0ff 50%, #4aa6ff); opacity: .9; transition: opacity .3s; }
+
 .leak-drop {
-  position: absolute; top: 15px; left: -6px; width: 12px; height: 16px; opacity: 0; transform-origin: 50% 0;
-  border-radius: 50% 50% 50% 50% / 65% 65% 35% 35%;
-  background: radial-gradient(circle at 38% 34%, #fff 0 16%, #c4e5ff 32%, #4aa6ff 100%);
-  box-shadow: 0 0 6px rgba(74, 166, 255, .55);
-  animation: leak-drip 2.7s var(--delay, 0s) infinite;
+  position: absolute; top: 16px; left: -6px; width: 12px; height: 16px; opacity: 0; transform-origin: 50% 0;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 32'%3E%3Cdefs%3E%3CradialGradient id='g' cx='38%25' cy='60%25' r='70%25'%3E%3Cstop offset='0' stop-color='%23eaf6ff'/%3E%3Cstop offset='.45' stop-color='%2399ceff'/%3E%3Cstop offset='1' stop-color='%231d8cf8'/%3E%3C/radialGradient%3E%3C/defs%3E%3Cpath d='M12 1C12 1 3 13.5 3 20.5a9 9 0 0 0 18 0C21 13.5 12 1 12 1z' fill='url(%23g)'/%3E%3Cellipse cx='8.6' cy='19' rx='2.2' ry='3.4' fill='%23fff' opacity='.85'/%3E%3C/svg%3E") center / contain no-repeat;
+  filter: drop-shadow(0 0 3px rgba(74, 166, 255, .55));
+  animation: leak-drip var(--dur, 2.7s) var(--delay, 0s) infinite;
+}
+@keyframes leak-drip {
+  0% { transform: translateY(0) scale(.1); opacity: 0; }
+  6% { opacity: 1; }
+  36% { transform: translateY(0) scale(1.06, .94); animation-timing-function: ease-in-out; }
+  41% { transform: translateY(0) scale(.95, 1.07); }
+  46% { transform: translateY(1px) scale(1.02, .98); }
+  52% { transform: translateY(5px) scale(.9, 1.22); animation-timing-function: cubic-bezier(.55, 0, 1, .45); }
+  90% { transform: translateY(calc(100cqh - 38px)) scale(.78, 1.42); opacity: 1; }
+  91%, 100% { transform: translateY(calc(100cqh - 38px)) scale(.78, 1.42); opacity: 0; }
 }
 .leak-splash {
   position: absolute; top: calc(100cqh - 16px); left: -15px; width: 30px; height: 9px; border-radius: 50%; opacity: 0;
-  border: 2px solid rgba(170, 215, 255, .9); animation: leak-splash 2.7s var(--delay, 0s) infinite;
+  border: 2px solid rgba(170, 215, 255, .9); animation: leak-splash var(--dur, 2.7s) var(--delay, 0s) infinite;
 }
-.leak-burst .leak-drop, .leak-burst .leak-splash { animation-duration: 1.35s; }
-@keyframes leak-drip {
-  0% { transform: translateY(0) scale(.15); opacity: 0; }
-  8% { opacity: 1; }
-  45% { transform: translateY(0) scale(1); animation-timing-function: ease-in-out; }
-  55% { transform: translateY(5px) scale(.9, 1.25); animation-timing-function: cubic-bezier(.55, 0, 1, .45); }
-  90% { transform: translateY(calc(100cqh - 34px)) scale(.85, 1.2); opacity: 1; }
-  91%, 100% { transform: translateY(calc(100cqh - 34px)) scale(.85, 1.2); opacity: 0; }
-}
+.leak-splash::after { content: ""; position: absolute; inset: -6px -10px; border-radius: 50%; border: 1px solid rgba(170, 215, 255, .5); }
 @keyframes leak-splash {
   0%, 89% { opacity: 0; transform: scale(.2); }
-  91% { opacity: 1; transform: scale(.45); }
-  100% { opacity: 0; transform: scale(1.7); }
+  91% { opacity: 1; transform: scale(.4); }
+  100% { opacity: 0; transform: scale(1.8); }
 }
+/* Crown: two droplets bounce out of the impact */
+.leak-crown { position: absolute; top: calc(100cqh - 14px); left: 0; width: 0; height: 0; }
+.leak-crown::before, .leak-crown::after {
+  content: ""; position: absolute; width: 4px; height: 4px; margin: -2px; border-radius: 50%; background: #d6ecff; opacity: 0;
+  box-shadow: 0 0 4px rgba(74, 166, 255, .8);
+  animation: crown-l var(--dur, 2.7s) var(--delay, 0s) infinite;
+}
+.leak-crown::after { animation-name: crown-r; width: 3px; height: 3px; }
+@keyframes crown-l { 0%, 90% { opacity: 0; transform: translate(0, 0); } 91% { opacity: 1; } 95% { transform: translate(-7px, -11px); } 100% { opacity: 0; transform: translate(-11px, 1px); } }
+@keyframes crown-r { 0%, 90% { opacity: 0; transform: translate(0, 0); } 91% { opacity: 1; } 95% { transform: translate(8px, -9px); } 100% { opacity: 0; transform: translate(12px, 1px); } }
+
+/* Burst: arcs of spray from the crack + mist */
 .leak-spray { position: absolute; top: 9px; left: 0; }
-.leak-spray i { position: absolute; left: -2px; top: 0; animation: spray-x .9s var(--d, 0s) linear infinite; }
-.leak-spray b { display: block; width: 4px; height: 4px; border-radius: 50%; background: #d6ecff; box-shadow: 0 0 5px rgba(74, 166, 255, .9); animation: spray-y .9s var(--d, 0s) infinite; }
+.leak-spray i { position: absolute; left: -2px; top: 0; animation: spray-x var(--sd, .9s) var(--d, 0s) linear infinite; }
+.leak-spray b { display: block; width: 4px; height: 4px; border-radius: 50%; background: #d6ecff; box-shadow: 0 0 5px rgba(74, 166, 255, .9); animation: spray-y var(--sd, .9s) var(--d, 0s) infinite; }
 @keyframes spray-x { from { transform: translateX(0); } to { transform: translateX(var(--dx)); } }
 @keyframes spray-y {
-  0% { transform: translateY(0); opacity: 1; animation-timing-function: cubic-bezier(.2, .7, .4, 1); }
-  30% { transform: translateY(14px); animation-timing-function: cubic-bezier(.6, 0, 1, .6); }
-  100% { transform: translateY(90px); opacity: 0; }
+  0% { transform: translateY(0) scale(1); opacity: 1; animation-timing-function: cubic-bezier(.2, .7, .4, 1); }
+  28% { transform: translateY(var(--h, 14px)) scale(1.1); animation-timing-function: cubic-bezier(.6, 0, 1, .6); }
+  100% { transform: translateY(96px) scale(.6); opacity: 0; }
 }
+.leak-mist { position: absolute; left: -40px; top: -6px; width: 80px; height: 50px; border-radius: 50%; background: radial-gradient(closest-side, rgba(180, 220, 255, .35), transparent); animation: mist 1.6s ease-in-out infinite alternate; }
+@keyframes mist { from { transform: scale(.85); opacity: .6; } to { transform: scale(1.15); opacity: 1; } }
+.leak-burst .leak-collar::before { content: ""; position: absolute; left: 8px; top: 13px; width: 6px; height: 2px; background: #2b3645; border-radius: 1px; transform: rotate(-12deg); }
+
+/* Band sizing */
 .leak-band { top: 16px; overflow: visible; }
 .leak-band .leak-pipe { height: 18px; }
 .leak-band .leak-collar { height: 24px; width: 26px; left: -13px; }
-.leak-band .leak-drop { top: 19px; }
-/* Hover "fixes" the leak */
-.leak-host:hover .leak-drop, .leak-host:hover .leak-splash, .leak-host:hover .leak-spray { opacity: 0 !important; animation-play-state: paused; }
-.leak-host:hover .leak-collar { background: linear-gradient(90deg, #15803d, #86efac 45%, #16a34a); box-shadow: 0 0 0 3px rgba(74, 222, 128, .35), 0 2px 6px rgba(0, 0, 0, .4); }
+.leak-band .leak-drop { top: 20px; }
+
+/* Fixing: wrench tightens the joint, drips stop, "Fixed" chip pops */
+.leak-wrench { position: absolute; top: -1px; left: 12px; width: 22px; height: 22px; color: var(--orange-500); opacity: 0; transform-origin: 15% 50%; filter: drop-shadow(0 2px 4px rgba(0, 0, 0, .3)); }
+.leak-wrench svg { width: 100%; height: 100%; display: block; }
+.leak-fixed {
+  position: absolute; top: -4px; right: 20px; white-space: nowrap; font-size: .72rem; font-weight: 800; color: #15803d;
+  background: #dcfce7; border: 1px solid #86efac; padding: 3px 9px; border-radius: 999px; opacity: 0; transform: translateY(-4px) scale(.9); transform-origin: right center;
+  transition: opacity .25s, transform .25s;
+}
+.leak.is-fixed .leak-drop, .leak.is-fixed .leak-splash, .leak.is-fixed .leak-crown, .leak.is-fixed .leak-spray { opacity: 0 !important; transition: opacity .25s; animation-play-state: paused; }
+.leak.is-fixed .leak-crown::before, .leak.is-fixed .leak-crown::after { opacity: 0 !important; }
+.leak.is-fixed .leak-collar { background: linear-gradient(90deg, #15803d, #86efac 45%, #16a34a); box-shadow: 0 0 0 3px rgba(74, 222, 128, .35), 0 2px 6px rgba(0, 0, 0, .4); animation: clamp .55s .35s ease; }
+.leak.is-fixed .leak-collar::after { opacity: 0; }
+.leak.is-fixed .leak-burst .leak-collar::before, .leak-burst.is-fixed .leak-collar::before { opacity: 0; }
+.leak.is-fixed .leak-wrench { animation: wrench 1s ease forwards; }
+.leak.is-fixed .leak-fixed { opacity: 1; transform: none; transition-delay: .7s; }
+@keyframes clamp { 0% { transform: scaleX(1); } 40% { transform: scaleX(.8); } 70% { transform: scaleX(1.06); } 100% { transform: scaleX(1); } }
+@keyframes wrench {
+  0% { opacity: 0; transform: translateY(-8px) rotate(-50deg); }
+  18% { opacity: 1; transform: translateY(0) rotate(-50deg); }
+  40% { transform: rotate(30deg); }
+  58% { transform: rotate(-35deg); }
+  78% { opacity: 1; transform: rotate(25deg); }
+  100% { opacity: 0; transform: translateY(-4px) rotate(10deg); }
+}
 .leak.is-paused * { animation-play-state: paused !important; }
+.leak.is-paused *::before, .leak.is-paused *::after { animation-play-state: paused !important; }
 
 /* Leak in empty space: behind text, never over photos */
 .copy-leak { position: relative; align-self: stretch; display: flex; flex-direction: column; justify-content: center; padding: 48px 0 40px; }
